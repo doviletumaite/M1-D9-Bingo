@@ -1,22 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
- 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <title>BINGO</title>
-</head>
-<body>
-
+  </head>
+  <body>
+      <div class="container">
     <h1>Strive Bingo</h1>
-    <div id="bingo-cointainer">
+    <div class="bingo-container m-auto board"></div>
+      <input class="button" type="button" value="Generate random numeber" id="randomButton"/>
+      <input class="imput-field" type="number" id="usersNumber" placeholder="Number of users" value="1"/>
+      <input class="btn" type="button" id="userBoardBtn" value="Generate user boards"/>
 
- 
-    <input class="button" type="button">   
-   
-</div> 
-    
-</body>
+      <h5 id="randNumb"></h5>
+     </div>
+      <script>
+
+const generateMainBoard = function () {
+    const board = document.querySelector(".bingo-container");
+    for (let i = 0; i < 76; i++) {
+        board.innerHTML += `<div class='cell'>${i + 1}</div>`;
+    }
+}
+// how to delete the previous numbers from the random numbers array (for scroll the list of numbers randomly until the end):
+//create an array in range [1, ..., 79]
+const fillArray = function () {
+    const arr = []
+    for ( let i = 0; i<76; i ++) {
+        arr.push(i+1)
+    }
+    return arr
+}
+// generate random index in the ranage of the array.lenght
+// get a element in the array under the index
+// remove th element form the array 
+const getRandomArray = function (range) {  // we will pass the array of the fillArray function 
+    const randomIndex = Math.floor(Math.random()*range.length)  // get a random index from the array
+    const random = range.splice(randomIndex, 1)[0]  // generate a array of one element that we're removing 
+    return random 
+}
+const generateRandomNumber = function (range) {
+    const random = getRandomArray(range);
+    const randomNumDiv = document.getElementById("randNumb");
+    randomNumDiv.innerText = "Number: " + random;
+    const cells = document.querySelectorAll('.bingo-container .cell')
+    cells[random -1].classList.add("highlight")  
+    // last thing is highlight also the matching cells of the user boards
+    // check if the inner number - inner text - is the same of the random number then highlight the matching cell
+    // grab the cells of the user board - a arrow of the cells  
+    const userCells = document. querySelectorAll(`.user-board .cell`)
+    // loop each of them and check the inner text 
+    userCells.forEach(cell => {
+        if(parseInt(cell.innerText)===random){
+            cell.classList.add("highlight") 
+        }
+    })
+}
+const generateUserBoards = function () {
+    const userNumber = document.getElementById("usersNumber").value; 
+    const container = document.querySelector('.container')
+    if (parseInt(userNumber) > 0) {
+        for (let i = 0; i < parseInt(userNumber); i ++) {
+            const range = fillArray()
+            const board = document.createElement("div");
+            board.className = "board user-board";
+            for (let i = 0; i <24 ; i++) {
+                const random = getRandomArray(range);
+                board.innerHTML += `<div class='cell'>${random}</div`
+            }
+            container.appendChild(board);
+        }
+    }
+}
+window.onload = function () {
+    generateMainBoard();
+    const button = document.getElementById("randomButton");
+    const range = fillArray()
+    button.addEventListener('click', function() {
+    generateRandomNumber(range)
+    });
+    const userBoardButton = document.getElementById("userBoardBtn")
+    userBoardButton.onclick = generateUserBoards; 
+}
+
+      </script>
+  </body>
 </html>

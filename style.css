@@ -1,34 +1,74 @@
 
 body {
-    background-color: rgb(143, 107, 167);
+    background-color: rgb(145, 107, 182);
 }
 
-
+.container {
+    margin-left: 40px;
+    margin-right: 40px;
+}
 h1 { 
     text-align: center;
 }
 
 .button {
-    
     background-color: #d378ec;
-    display: inline-block;
-    width: 5%;
+    border-color: #38f738;
+    display: block;
     min-height: 64px;
     text-align: center;
-   
     font-size: larger;
     font-weight: bold;
     border-style: solid;
-    border-radius: 89px;
-    margin: 11px;
+    border-radius: 100px;
+    width:300px; 
+    height:100px; 
+    top:10%;
+    left:42%;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.imput-field{
+    margin: auto;
+    display: block;
+    margin-top: 30px;
+}
+
+.btn {
+    margin: auto;
+    display: block;
+    margin-top: 30px;
+    background-color: #d378ec;
     border-color: #38f738;
-    width:200px; 
-    height:200px; 
+    border-radius: 100px;
+}
+.board {
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+.user-board {
+    width: 500px;
+    margin-bottom: 30px;
+}
+.cell {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #38f738;
+}
+#randNumb {
+    margin: auto;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 20px;
+}
 
-
-    position: absolute;
-    top:50%;
-    left:50%;
-    margin-top: -100px;
-    margin-left: -100px;
+.highlight {
+    background-color: #df9ef1;
 }
